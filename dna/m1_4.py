@@ -1,6 +1,6 @@
 from Bio import SeqIO
 import matplotlib.pyplot as plt
-from DNA_analyze.dna.m1_2 import make_comp
+from lab_tutorial.dna.m1_2 import make_comp
 
 
 def PatternMatching(pattern, genome):
@@ -18,7 +18,7 @@ def PatternMatching(pattern, genome):
 
 
 if __name__ == '__main__':
-    record = SeqIO.read("../sequence.fasta", "fasta")
+    record = SeqIO.read("data/sequence.fasta", "fasta")
     pattern1 = 'GAATTC'
     pattern2 = 'ATG'
     print(PatternMatching(pattern1, record.seq))

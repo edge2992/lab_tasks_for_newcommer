@@ -11,7 +11,7 @@ def make_comp(text):
 
 
 if __name__ == '__main__':
-    record = SeqIO.read("sequence.fasta", "fasta")
+    record = SeqIO.read("data/sequence.fasta", "fasta")
     print("length: ", len(record.seq))
     print(make_comp(record.seq))
 

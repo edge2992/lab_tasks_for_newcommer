@@ -1,8 +1,9 @@
 from Bio import SeqIO
 import matplotlib.pyplot as plt
 
-from DNA_analyze.dna.m1_2 import make_comp
-from DNA_analyze.dna.m1_4 import PatternMatching
+from lab_tutorial.dna.m1_2 import make_comp
+from lab_tutorial.dna.m1_4 import PatternMatching
+
 
 gencode = {
     'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M',
@@ -53,11 +54,8 @@ def trans_aa(genome):
     return aa
 
 
-
-
-
 if __name__ == '__main__':
-    record = SeqIO.read("../sequence.fasta", "fasta")
+    record = SeqIO.read("data/sequence.fasta", "fasta")
     print("length: ", len(record.seq))
     # print(PatternMatching('ATG', record.seq[:500]))
     print(trans_aa(record.seq))

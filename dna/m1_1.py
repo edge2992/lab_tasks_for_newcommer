@@ -1,6 +1,6 @@
 from Bio import SeqIO
 
-record = SeqIO.read("sequence.fasta", "fasta")
+record = SeqIO.read("data/sequence.fasta", "fasta")
 print("length: ", len(record.seq))
 
 print("A: ", record.seq.count('A'))
