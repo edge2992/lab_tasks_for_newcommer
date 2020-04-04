@@ -19,6 +19,6 @@ if __name__ == '__main__':
     x = range(0, len(record.seq)-w, s)
     plt.figure(figsize=(10, 10))
     plt.plot(x, r)
-    plt.show()
-    plt.savefig('result/m1_3.png')
+    # plt.show()
+    plt.savefig('result/1_3.png')
 
