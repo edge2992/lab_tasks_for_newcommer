@@ -1,17 +1,21 @@
 from Bio import SeqIO
 
 
-def make_comp(text):
-    dict = {'A': 'T', 'T': 'A', 'G': 'C', 'C':'G'}
+def comp(text):
+    dic = {'A': 'T', 'T': 'A', 'G': 'C', 'C':'G'}
     result = ''
-    for word in text[::-1]:
-        result +=dict[word]
+    for word in text:
+        result += dic[word]
 
     return result
 
 
+def rev_comp(text):
+    return comp(text)[::-1]
+
+
 if __name__ == '__main__':
     record = SeqIO.read("data/sequence.fasta", "fasta")
-    print("length: ", len(record.seq))
-    print(make_comp(record.seq))
+    print(rev_comp(record.seq))
+    assert rev_comp(record.seq) == record.reverse_complement().seq
 

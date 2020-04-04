@@ -1,9 +1,7 @@
 from Bio import SeqIO
-import matplotlib.pyplot as plt
-
-from lab_tutorial.dna.m1_2 import make_comp
-from lab_tutorial.dna.m1_4 import PatternMatching
-
+from Bio.Data import CodonTable
+from m1_2 import rev_comp
+from m1_4 import Pattern_Matching, all_Pattern_Matching
 
 gencode = {
     'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M',
@@ -23,43 +21,45 @@ gencode = {
     'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
     'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'}
 
-def trans_aa(genome):
-    start = 'ATG'
-    rev_genome = make_comp(genome)
-    f_s, f_rv = PatternMatching(start, genome)
+def trans_to_protein(genome):
+    # standard_table = CodonTable.unambiguous_dna_by_id[1]
+    # starts = standard_table.start_codons
+    starts = ['ATG']
+    rev_genome = rev_comp(genome)
+    f_s = []
+    f_rv = []
+    for start in starts:
+        buf1, buf2 = all_Pattern_Matching(start, genome)
+        f_s += buf1
+        f_rv += buf2
     aa = set()
 
     for f in f_s:
-        acid = ''
-        for i in range(f, len(genome)-3, 3):
-            if gencode[genome[i:i+3]] == '_':
-                acid += '_'
-                break
-            acid += gencode[genome[i:i+3]]
-        # print(acid)
-        aa.add(acid)
-
-    print(len(aa))
+        aa.add(cut_protain(genome, f))
 
     for f in f_rv:
-        acid = ''
-        for i in range(f, len(rev_genome)-3, 3):
-            if gencode[rev_genome[i:i+3]] == '_':
-                acid += '_'
-                break
-            acid += gencode[rev_genome[i:i+3]]
-        # print(acid)
-        aa.add(acid)
-    print(len(aa))
+        aa.add(cut_protain(rev_genome, f))
+
     return aa
+
+
+def cut_protain(genome, start):
+    acid = ''
+    for i in range(start, len(genome) -3, 3):
+        if gencode[genome[i:i+3]] == '_':
+            acid += gencode[genome[i:i+3]]
+            break
+        acid += gencode[genome[i:i+3]]
+
+    return acid
 
 
 if __name__ == '__main__':
     record = SeqIO.read("data/sequence.fasta", "fasta")
-    print("length: ", len(record.seq))
-    # print(PatternMatching('ATG', record.seq[:500]))
-    print(trans_aa(record.seq))
+    ans_set = trans_to_protein(record.seq)
+    ans_sorted = sorted(ans_set)
 
+    for amid in ans_sorted:
+        print(amid)
 
-
-
+    print(len(ans_sorted))
