@@ -4,7 +4,7 @@
 import numpy as np
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score, KFold
 
 
 def calc_rmse(y_true,y_pred):
@@ -33,22 +33,36 @@ def show_graph(y_true, y_pred):
     plt.legend()
 
 
-def regression(model, x, y, graph=False):
+def regression(model, x, y, graph=True, score=False):
     """
-    回帰モデルの比較をするための巻数
+
     :param model:
     :param x:
     :param y:
     :param graph: グラフを出力するかどうか
     :return:
     """
-    # TODO:  評価をするときは交差検証をするべき
-    X_train, X_test, Y_train, Y_test = train_test_split(x, y)
+    X_train, X_test, Y_train, Y_test = train_test_split(x, y, shuffle=True)
     model.fit(X_train, Y_train)
     y_pred = model.predict(X_test)
-
-    calc_score(Y_test, y_pred)
+    if score:
+        calc_score(Y_test, y_pred)
     if graph:
         show_graph(Y_test, y_pred)
 
     return model
+
+
+def cv_regression(model, x, y):
+    kf = KFold(n_splits=4, shuffle=True, random_state=10)
+
+    rse = cross_val_score(model, x, y, scoring='neg_mean_squared_error', cv=kf)
+    r2 = cross_val_score(model, x, y, scoring='r2', cv=kf)
+
+    rmse = np.sqrt(np.abs(rse))
+
+    print(rmse)
+    print(r2)
+
+    print('mean rmse: {:.5f}'.format(np.mean(rmse)))
+    print('mean r2: {:.5f}'.format(np.mean(r2)))
