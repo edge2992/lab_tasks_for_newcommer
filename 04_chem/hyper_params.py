@@ -5,7 +5,7 @@ from sklearn.utils import cpu_count
 from calc_score import calc_rmse
 
 
-def grid(X, Y, params, model):
+def grid(X, Y, params, model, n_jobs=-1):
     kf = KFold(n_splits=4, shuffle=True, random_state=42)
 
     # MSE
@@ -14,7 +14,7 @@ def grid(X, Y, params, model):
         param_grid=params,
         cv=kf,
         scoring='neg_mean_squared_error',
-        n_jobs=cpu_count())
+        n_jobs=n_jobs)
 
     gs.fit(X, Y)
     print(gs.best_params_)
