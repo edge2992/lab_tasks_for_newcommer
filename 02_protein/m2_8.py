@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from pymol import cmd
 from m2_7 import calc_gc
 filename = "data/1buw.pdb"
