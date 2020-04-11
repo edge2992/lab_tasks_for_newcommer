@@ -26,11 +26,11 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, shuffle=True)
 
 model = lgb.LGBMRegressor(**best_param)
 model.fit(X_train, Y_train)
-y_pred = model.predict(X)
+y_pred = model.predict(X_test)
 
-df_diff = get_sorted_diff(Y, y_pred, X)
+df_diff = get_sorted_diff(Y_test, y_pred, X_test)
 
 print(df_diff.head())
 
 
-
+df_diff.to_csv("result/diff_sorted_test.csv")

@@ -25,43 +25,43 @@ def prepare_dataset(filename_X, filename_Y, norm=True):
 
 def try_all_models(filename_X, filename_Y):
     X, Y = prepare_dataset(filename_X, filename_Y)
-    # print("==========-RIDGE==========-")
-    # params = {
-    #     'alpha': [0.01, 0.1, 1.0, 10.0]
-    # }
-    #
-    # reg = linear_model.Ridge()
-    # gs = grid(X, Y, params, reg)
-    # reg_b = linear_model.Ridge(**gs.best_params_)
-    # cv_regression(reg_b, X, Y)
-    #
-    # print("==========-SVR==========-")
-    #
-    # params = {
-    #     'C': [0.001, 0.01, 0.1, 1, 10],
-    #     'gamma': [0.001, 0.01, 0.1, 1],
-    # }
-    #
-    # svr = SVR(kernel='linear')
-    # gs = grid(X, Y, params, svr)
-    # svr_b = SVR(kernel='linear', **gs.best_params_)
-    # cv_regression(svr_b, X, Y)
-    #
-    # print("==========Random Forest Regression==========-")
-    #
-    # params = {
-    #     'n_estimators': [5, 10, 20, 30, 50, 100, 300],
-    #     'max_features': ['auto', 'sqrt', 'log2'],
-    #     'random_state': [2525],
-    #     'n_jobs': [-1],
-    #     'min_samples_split': [3, 5, 10, 15, 20, 25, 30, 40, 50, 100],
-    #     'max_depth': [3, 5, 10, 15, 20, 25, 30, 40, 50, 100]
-    # }
-    #
-    # rf = RFR()
-    # gs = grid(X, Y, params, rf)
-    # rfr_reg = RFR(**gs.best_params_)
-    # cv_regression(rfr_reg, X, Y)
+    print("==========-RIDGE==========-")
+    params = {
+        'alpha': [0.01, 0.1, 1.0, 10.0]
+    }
+
+    reg = linear_model.Ridge()
+    gs = grid(X, Y, params, reg)
+    reg_b = linear_model.Ridge(**gs.best_params_)
+    cv_regression(reg_b, X, Y)
+
+    print("==========-SVR==========-")
+
+    params = {
+        'C': [0.001, 0.01, 0.1, 1, 10],
+        'gamma': [0.001, 0.01, 0.1, 1],
+    }
+
+    svr = SVR(kernel='linear')
+    gs = grid(X, Y, params, svr)
+    svr_b = SVR(kernel='linear', **gs.best_params_)
+    cv_regression(svr_b, X, Y)
+
+    print("==========Random Forest Regression==========-")
+
+    params = {
+        'n_estimators': [5, 10, 20, 30, 50, 100, 300],
+        'max_features': ['auto', 'sqrt', 'log2'],
+        'random_state': [2525],
+        'n_jobs': [-1],
+        'min_samples_split': [3, 5, 10, 15, 20, 25, 30, 40, 50, 100],
+        'max_depth': [3, 5, 10, 15, 20, 25, 30, 40, 50, 100]
+    }
+
+    rf = RFR()
+    gs = grid(X, Y, params, rf)
+    rfr_reg = RFR(**gs.best_params_)
+    cv_regression(rfr_reg, X, Y)
 
     print("==========lightGBM==========-")
 
