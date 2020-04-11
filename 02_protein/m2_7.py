@@ -1,36 +1,27 @@
-import math
+from pymol import cmd, launch
 import numpy as np
-import sys
 
 
-def calc_ag(filename, chain):
-    try:
-        fs = open(filename, 'r')
-    except OSError as e:
-        print(e)
-    coord = []
-    for line in fs:
-        line = line.split()
-        if line[0] == 'ATOM' and line[4] == chain and line[2] == 'CA':
-            x = float(line[6])
-            y = float(line[7])
-            z = float(line[8])
-            coord.append([x, y, z])
-    coord = np.array(coord)
-    mass = np.sum(coord, axis=0) / len(coord)
-    lens = []
-    for x in coord:
-        lens.append(np.sqrt(np.sum(np.square(x-mass))))
-    lens = np.array(lens)
-    return np.sum(lens) / len(lens)
+def calc_gc(filename, select):
+    # IUPAC definition
+    cmd.load(filename)
+    cmd.hide('everything')
+
+    model = cmd.get_model(select).atom
+    center = np.array(cmd.centerofmass(select))
+
+    pos = np.array([atom.coord for atom in model])
+    pos_c = np.square(pos - center) # 重心からの座標
+    pos_c_m = np.sum(pos_c, axis=1)  # x^2 + y^2 + z^2
+
+    mass = np.array([atom.get_mass() for atom in model])
+    upper = mass * pos_c_m
+
+    total_upper = np.sum(upper)
+    total_mass = np.sum(mass)
+
+    return np.sqrt(total_upper/ total_mass)
 
 
-if __name__ == '__main__':
-    args = sys.argv
-    if 3 <= len(args):
-        filename = args[1]
-        chain = args[2]
-        a = calc_ag(filename, chain)
-    else:
-        print('Arguments are too short')
-    print(a)
+# if __name__ == '__main__':
+print(calc_gc("data/1buw.pdb", "chain A"))
