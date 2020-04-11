@@ -15,3 +15,8 @@ pymolで実行
 2d記述子、3d記述子、fingerprintは04chem/m4_1-4.ipynbで用意しています。
 機械学習はそれぞれの.pyで実行して、結果をresultに入れています。
 
+最も良かったのは2D記述子を使って、lightGBMで学習したモデルでハイパーパラメータは
+
+#　{'learning_rate': 0.05, 'max_depth': 25, 'n_estimators': 200, 'num_leaves': 100}
+
+のようになりました
