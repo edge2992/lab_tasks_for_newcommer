@@ -9,7 +9,6 @@
 02protein/resultに結果を記載した。
 
 # 3. 機械学習
-.scaleのファイルの処理方法が分からなかったので、kaggleで検索してcsvのファイルをダウンロードした。
 ## 3.1 結果を以下に記載する
 
 precision score of test set: 0.89919  
