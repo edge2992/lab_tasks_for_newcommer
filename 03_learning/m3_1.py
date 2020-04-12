@@ -25,7 +25,7 @@ def preapare_dataset(filename, norm=True):
 
 
 def eval_model(y_test, y_pred, y_score):
-    fpr, tpr, thresholds = roc_curve(y_test, y_score)
+    fpr, tpr, thresholds = roc_curve(y_test, y_score[:, 1])
     print('precision score of test set: {:.5f}'.format(precision_score(y_test, y_pred)))
     print('recall score of test set: {:.5f}'.format(recall_score(y_test, y_pred)))
     print('auc score of test set: {:.5f}'.format(auc(fpr, tpr)))
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     y_pred = cross_val_predict(svm, X, Y, cv=kf)
     y_score = cross_val_predict(svm, X, Y, cv=kf, method='predict_proba')
 
-    eval_model(Y, y_pred, y_score[:, 1])
+    eval_model(Y, y_pred, y_score)
 
 
 # precision score of test set: 0.89919
