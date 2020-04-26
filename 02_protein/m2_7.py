@@ -11,11 +11,10 @@ def calc_gc(filename, select):
     center = np.array(cmd.centerofmass(select))
 
     pos = np.array([atom.coord for atom in model])
-    pos_c = np.square(pos - center) # 重心からの座標
-    pos_c_m = np.sum(pos_c, axis=1)  # x^2 + y^2 + z^2
+    pos_c_m = np.linalg.norm(pos - center, axis=1)
 
     mass = np.array([atom.get_mass() for atom in model])
-    upper = mass * pos_c_m
+    upper = mass * np.square(pos_c_m)    # m * r^2
 
     total_upper = np.sum(upper)
     total_mass = np.sum(mass)
