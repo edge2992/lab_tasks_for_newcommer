@@ -11,26 +11,29 @@
 # 3. 機械学習
 ## 3.1 結果を以下に記載する
 
-precision score of test set: 0.89919  
-recall score of test set: 0.99111  
+precision score of test set: 0.89919   
+recall score of test set: 0.99111   
 auc score of test set: 0.98106  
 matthews_corrcoef score of test set: 0.83510  
 f score of test set: 0.94292  
 ## 3.2 結果を以下に記載する
-==================roc_auc==================  
-{'C': 50, 'gamma': 0.2}  
-precision score of test set: 0.98077  
-recall score of test set: 0.91071  
-auc score of test set: 0.96429  
-matthews_corrcoef score of test set: 0.86047  
-f score of test set: 0.94444  
-==================f1==================  
-{'C': 50, 'gamma': 0.1}  
-precision score of test set: 0.94340  
-recall score of test set: 0.92593  
-auc score of test set: 0.97495  
-matthews_corrcoef score of test set: 0.83339  
-f score of test set: 0.93458  
+====================roc_auc====================  
+best_param
+{'svc__C': 10.0, 'svc__gamma': 0.1}  
+precision score of test set: 0.91304  
+recall score of test set: 0.97674  
+auc score of test set: 0.98256  
+matthews_corrcoef score of test set: 0.85324  
+f score of test set: 0.94382  
+====================f1====================  
+best_param
+{'svc__C': 1.0, 'svc__gamma': 0.1}  
+precision score of test set: 0.89362  
+recall score of test set: 0.97674  
+auc score of test set: 0.98754  
+matthews_corrcoef score of test set: 0.82462  
+f score of test set: 0.93333
+
 # 4. 創薬情報処理
 2d記述子、3d記述子、fingerprintは04chem/m4_1-4.ipynbで用意した。
 機械学習はそれぞれの.pyで実行して、結果をresultに記載した。
