@@ -26,7 +26,7 @@ if __name__ == '__main__':
     plt.figure(figsize=(20, 10))
     plt.plot(x, r)
     plt.xlabel('bp', fontsize=25)
-    plt.ylabel('GC含量(%)', fontsize=25)
+    plt.ylabel('GC含量', fontsize=25)
     # plt.show()
     plt.savefig('result/1_3.png')
 
