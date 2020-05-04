@@ -12,7 +12,8 @@ plt.rcParams["font.size"] = 20
 def calc_gc(word, wid=1000, step=300):
     result = []
     for i in range(0, len(word)-wid, step):
-        buf = word[i:i+step]
+        buf = word[i:i+wid]
+        print(len(buf))
         result.append((buf.count('G') + buf.count('C')) / wid)
     return result
 
