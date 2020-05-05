@@ -6,9 +6,9 @@ lightGBM
 random forest regression
 """
 
-from lgb_reg import check_lgb
-from randomforest import check_rfr
-from svr import check_svr
+from ..m4_6.lgb_reg import check_lgb
+from ..m4_6.randomforest import check_rfr
+from ..m4_6.svr import check_svr
 from ..m4_6.ridge import check_ridge
 
 
