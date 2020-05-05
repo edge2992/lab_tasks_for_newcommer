@@ -1,3 +1,6 @@
+"""
+予測の良い化合物と悪い化合物をそれぞれ10個ずつ描画する
+"""
 import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import Draw
