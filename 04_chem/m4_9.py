@@ -1,11 +1,9 @@
+"""
+次元を削減して組み合わせる
+"""
 import pandas as pd
-import numpy as np
 from sklearn.decomposition import PCA
-import lightgbm as lgb
-
-from m4_6_2d import prepare_dataset
-from hyper_params import grid
-from calc_score import cv_regression
+from regression import prepare_dataset
 
 
 def zigen(df, n_components=10):

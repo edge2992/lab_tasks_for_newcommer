@@ -1,12 +1,13 @@
 import pandas as pd
 import optuna
 import lightgbm as lgb
-from sklearn.model_selection import KFold, cross_val_predict
+from sklearn.model_selection import KFold, cross_val_predict, train_test_split
 from functools import partial
 from sklearn.model_selection import cross_val_predict
 
-from calc_score import calc_rmse, cv_regression
-from m4_6_2d import prepare_dataset
+import sys
+sys.path.append("./m4_6")
+from regression import calc_rmse, prepare_dataset, calc_score
 
 
 def objective(X, y, trial):
@@ -36,20 +37,25 @@ def objective(X, y, trial):
         # "colsample_bytree": colsample_bytree,
     }
     model_opt = lgb.LGBMRegressor(**params)
-    kf = KFold(n_splits=4, shuffle=True, random_state=42)
-    y_pred = cross_val_predict(model_opt, X, y, cv=kf)
+    y_pred = cross_val_predict(model_opt, X, y, cv=4)
     return calc_rmse(y, y_pred)
 
 
 if __name__ == '__main__':
     X, Y = prepare_dataset("data/pca_all_X.csv", "data/fukunishi_data.csv")
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
     study_rmse = optuna.create_study(direction='minimize')
-    f = partial(objective, X, Y)
+    f = partial(objective, X_train, y_train)
     study_rmse.optimize(f, n_trials=10)
     print(study_rmse.best_params)
 
+    # trial = study_rmse.best_trial
+
     f_model = lgb.LGBMRegressor(**study_rmse.best_params)
-    cv_regression(f_model, X, Y)
+    f_model.fit(X_train, y_train)
+    y_pred = f_model.predict(X_test)
+    print(calc_score(y_test, y_pred))
+
 
 
 """
