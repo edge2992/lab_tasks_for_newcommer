@@ -3,7 +3,7 @@ from regression import prepare_dataset, grid_many
 from sklearn.ensemble import RandomForestRegressor as RFR
 
 
-def check_rfr(Xfile, Yfile):
+def check_rfr(Xfile, Yfile, dir_path):
     X, Y = prepare_dataset(Xfile, Yfile, norm=False)
     print('=' * 5 + "Random Forest Regression" + '=' * 5)
 
@@ -17,8 +17,8 @@ def check_rfr(Xfile, Yfile):
     }
 
     rf = RFR()
-    grid_many(rf, X, Y, params)
+    grid_many(rf, X, Y, params, dir_path)
 
 
 if __name__ == '__main__':
-    check_rfr("../data/2d_desc.csv", "../data/fukunishi_data.csv")
+    check_rfr("../data/2d_desc.csv", "../data/fukunishi_data.csv", "../result/param_2d/")

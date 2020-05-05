@@ -2,7 +2,7 @@ from regression import prepare_dataset, grid_many
 import lightgbm as lgb
 
 
-def check_lgb(Xfile, Yfile):
+def check_lgb(Xfile, Yfile, dir_path):
     X, Y = prepare_dataset(Xfile, Yfile, norm=False)
     print('=' * 5 + "lightGBM" + '=' * 5)
 
@@ -14,8 +14,8 @@ def check_lgb(Xfile, Yfile):
     }
 
     lgb_reg = lgb.LGBMRegressor()
-    grid_many(lgb_reg, X, Y, params)
+    grid_many(lgb_reg, X, Y, params, dir_path)
 
 
 if __name__ == '__main__':
-    check_lgb("../data/2d_desc.csv", "../data/fukunishi_data.csv")
+    check_lgb("../data/2d_desc.csv", "../data/fukunishi_data.csv", "../result/param_2d/")
