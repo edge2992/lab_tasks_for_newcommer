@@ -1,0 +1,5 @@
+Ridge
+best_param
+{"ridge__alpha": 100.0}
+RMSE: 0.57128
+q2  : 0.72629

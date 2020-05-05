@@ -1,0 +1,5 @@
+LGBMRegressor
+best_param
+{"lgbmregressor__learning_rate": 0.01, "lgbmregressor__max_depth": 25, "lgbmregressor__n_estimators": 500, "lgbmregressor__num_leaves": 100}
+RMSE: 0.48626
+q2  : 0.80169

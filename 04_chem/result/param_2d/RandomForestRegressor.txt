@@ -1,0 +1,5 @@
+RandomForestRegressor
+best_param
+{"randomforestregressor__max_depth": 20, "randomforestregressor__max_features": "auto", "randomforestregressor__min_samples_split": 5, "randomforestregressor__n_estimators": 300, "randomforestregressor__n_jobs": -1, "randomforestregressor__random_state": 2525}
+RMSE: 0.50962
+q2  : 0.78219

@@ -1,0 +1,5 @@
+SVR
+best_param
+{"svr__C": 10.0, "svr__gamma": 0.001}
+RMSE: 0.67438
+q2  : 0.61857
