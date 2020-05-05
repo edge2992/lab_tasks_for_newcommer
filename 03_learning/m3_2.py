@@ -30,6 +30,12 @@ for score in scores:
     print('best_param')
     print(gs.best_params_)
 
+    # means = gs.cv_results_['mean_test_score']
+    # stds = gs.cv_results_['std_test_score']
+    # for mean, std, params in zip(means, stds, gs.cv_results_['params']):
+    #     print("%0.3f (+/-%0.03f) for %r"
+    #           % (mean, std * 2, params))
+
     y_pred = gs.predict(X_test)
     y_score = gs.predict_proba(X_test)
     eval_model(y_test, y_pred, y_score)
