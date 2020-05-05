@@ -37,6 +37,7 @@ f score of test set: 0.93333
 # 4. 創薬情報処理
 2d記述子、3d記述子、fingerprintは04chem/m4_1-4.ipynbで用意した。
 
+### 4.6 4.7 回帰モデルの比較
 回帰のモデルはRidge, RandomForest, lightGBM, SVRをそれぞれ比較した。
 
 - [2D記述子での学習の結果](https://github.com/kaz-i-54/lab_tasks_for_newcommer/tree/master/04_chem/result/param_2d)
@@ -61,8 +62,8 @@ q2  : 0.80169
 [テストケース199個での結果](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/result/diff_sorted_test.csv)
 
 #### 2.良いものと悪いものについて出処に差があったかを調べる  
-全体（199個）  
-CHEMBL3431937    86  
+test全体（199個）  
+>CHEMBL3431937    86  
 CHEMBL1034536    43  
 CHEMBL905613     34  
 Astellas         14  
@@ -71,14 +72,14 @@ CHEMBL905612     10
 Enamine           1  
 
 予測が良かったもの（25個）
-CHEMBL3431937    14  
+>CHEMBL3431937    14  
 CHEMBL905613      5  
 CHEMBL1034536     4  
 CHEMBL905612      1  
 CHEMBL3430218     1  
 
 予測が悪かったもの（25個）  
-CHEMBL1034536    12  
+>CHEMBL1034536    12  
 CHEMBL3431937     7  
 CHEMBL905613      3  
 CHEMBL3430218     2  
@@ -92,11 +93,28 @@ CHEMBL1034536において12/43が予測のワースト25に該当した
 ベンゼン環が一つしかないものが予測の悪いもので比較的多いことがわかった。
 
 ### 4.9 発展
-次元削減をして2d, 3d, fingerprintをあわせた。(4_9.py)
-optunaでパラメーター探索したスコアは
+2D, 3D記述子とfinger printを合わせて、次元削減した。次元削減では固有値の分散説明率の累積が0.9以上となるn_component = 256として、optunaを利用してハイパーパラメーターを探索した。  
 
->{'bagging_freq': 2, 'min_data_in_leaf': 7, 'max_depth': 26, 'learning_rate': 0.046492270347490636, 'num_leaves': 798, 'num_threads': 9, 'min_sum_hessian_in_leaf': 3}  
-RMSE: 0.54475  
-q2  : 0.75112  
+n_trials=500 とした
 
+####n_component~50 の場合
+>{'num_leaves': 763, 'n_estimators': 116, 'max_depth': 3, 'min_child_weight': 22, 'subsample': 0.7, 'colsample_bytree': 0.8}  
+RMSE: 0.59108  
+q2  : 0.70698  
+
+####n_component=100 の場合
+>{'num_leaves': 120, 'n_estimators': 59, 'max_depth': 39, 'min_child_weight': 21, 'subsample': 0.7, 'colsample_bytree': 0.8}  
+RMSE: 0.56623  
+q2  : 0.73111  
+
+####n_component=256 の場合
+>{'num_leaves': 337, 'n_estimators': 591, 'max_depth': 3, 'min_child_weight': 24, 'subsample': 0.5, 'colsample_bytree': 0.7}  
+RMSE: 0.56858  
+q2  : 0.72886
+
+####参考
+普通に2d記述子(201個)でoptunaを用いた場合のスコア  
+>{'num_leaves': 5, 'n_estimators': 289, 'max_depth': 53, 'min_child_weight': 17, 'subsample': 0.5, 'colsample_bytree': 0.7}  
+RMSE: 0.48588  
+q2  : 0.80200  
 
