@@ -27,7 +27,7 @@ from m4_6.regression import prepare_dataset
 
 
 def get_sorted_diff(y_true, y_pred, x_test):
-    df_ex = pd.read_csv("data/fukunishi_data.csv")
+    df_ex = pd.read_csv("../data/fukunishi_data.csv")
     y_diff = [abs(y_p - y_t) for y_p, y_t in zip(y_pred, y_true)]
     ar = np.array([y_diff, y_pred, y_true]).T
 
