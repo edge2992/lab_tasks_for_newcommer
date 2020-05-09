@@ -62,7 +62,7 @@ q2  : 0.80169
 [テストケース199個での結果](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/result/diff_sorted_test.csv)
 
 #### 2.良いものと悪いものについて出処に差があったかを調べる  
-![予測と実験値の関係](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/AssayID_scatter_pred_true.png)
+![予測と実験値の関係](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/Assay%20ID_scatter_pred_true.png)
 
 test全体（199個）  
 >CHEMBL3431937    86  
@@ -106,8 +106,9 @@ GridSearchでのクラス分類による混同行列は以下のようになっ�
 
 ![混同行列](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/svc_confusion.png)
 
-SBSによる特徴量抽出も試みたがうまく抽出することができなかった。
+SBSによる特徴量抽出も試みた。マシューズ相関係数で評価をすると特徴量の数が20ほどでも良いスコアが出ることがわかったので、これらの特徴量からペアプロットを描画した。予測の悪さの原因となるような特徴量を見つけることができなかった。
 
+![SBS](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/sbs.png)
 
 ![ペアプロット](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/pairplot.png)
 
