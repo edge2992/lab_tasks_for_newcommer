@@ -6,7 +6,7 @@ SBSから特徴量を抽出する便利関数たち
 
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.metrics import precision_score, matthews_corrcoef, plot_confusion_matrix
+from sklearn.metrics import precision_score, matthews_corrcoef, plot_confusion_matrix, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
@@ -68,7 +68,7 @@ class Reduce_label():
 
         self.sbs.fit(self.X_train_std, self.y_train)
 
-    def plot_performance(self):
+    def plot_performance(self, path="./sbs.png"):
         """
         SBSでの結果をプロットする
         """
@@ -78,11 +78,11 @@ class Reduce_label():
 
         plt.plot(k_feat, sbs.scores_, marker='o')
         plt.ylim([0.1, 1.1])
-        plt.ylabel('Accuracy')
+        plt.ylabel('f1 score')
         plt.xlabel('Number of features')
         plt.grid()
         plt.tight_layout()
-        plt.savefig('./sbs.png', dpi=300)
+        plt.savefig(path, dpi=300)
         plt.show()
 
     def get_label_name(self, index):
@@ -127,17 +127,19 @@ if __name__ == '__main__':
     svc = SVC(C=1.0, gamma=1.0, class_weight={"exp>pred": 1000, "pred=exp": 1, "pred>exp": 1000})
 
     # クラスに偏りがあるのでmatthews_corrcoefを利用する
-    rel = Reduce_label(X, y, svc, 1, matthews_corrcoef)
+    rel = Reduce_label(X, y, svc, 1, f1_score)
 
     rel.fit()
 
-    rel.plot_performance()
+    rel.plot_performance("data/classify/sbs.png")
     print(rel.get_label_name(25))
+
 
     X_train, X_test, y_train, y_test = rel.get_datasets_reduced(30)
     
     svc.fit(X_train, y_train)
     plot_confusion_matrix(svc ,X_test ,y_test)
+    plt.show()
 
 
 

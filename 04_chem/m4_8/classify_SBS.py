@@ -61,7 +61,7 @@ class SBS():
     def _calc_score(self, X_train, y_train, X_test, y_test, indices):
         self.estimator.fit(X_train[:, indices], y_train)
         y_pred = self.estimator.predict(X_test[:, indices])
-        score = self.scoring(y_test, y_pred)
+        score = self.scoring(y_test, y_pred, average="micro")
         return score
 
 

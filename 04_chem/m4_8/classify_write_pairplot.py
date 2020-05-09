@@ -42,6 +42,13 @@ if __name__ == '__main__':
     #  'FpDensityMorgan2', 'BertzCT', 'Chi0', 'Chi0n', 'Chi0v', 'Chi1',
     #  'Chi1n', 'Chi1v', 'Chi2n', 'PEOE_VSA10', 'compare']
 
+    label = ['MaxEStateIndex', 'MinEStateIndex', 'MaxAbsEStateIndex', 'MolWt',
+    'HeavyAtomMolWt', 'ExactMolWt', 'NumValenceElectrons',
+    'NumRadicalElectrons', 'MaxPartialCharge', 'MinPartialCharge',
+    'MaxAbsPartialCharge', 'MinAbsPartialCharge', 'FpDensityMorgan1',
+    'FpDensityMorgan2', 'FpDensityMorgan3', 'BalabanJ', 'BertzCT', 'Chi0',
+    'Chi0v', 'Kappa2', 'Kappa3', 'PEOE_VSA1', 'PEOE_VSA10', 'PEOE_VSA11', 'compare']
+
     sns.pairplot(df[label], hue="compare")
     plt.tight_layout()
     plt.savefig("data/classify/pairplot.png")
