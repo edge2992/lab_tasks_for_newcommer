@@ -1,10 +1,10 @@
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import cohen_kappa_score, make_scorer, matthews_corrcoef, plot_confusion_matrix
+from sklearn.metrics import cohen_kappa_score, make_scorer, matthews_corrcoef, plot_confusion_matrix, confusion_matrix
 from sklearn.svm import SVC
 
 from classify_data_reduce import Reduce_label
 from classify_dataprepare import load_classify_datasets
-
+import matplotlib.pyplot as plt
 
 X, y = load_classify_datasets()
 
@@ -30,11 +30,12 @@ params = {
 
 mcc_scorer = make_scorer(matthews_corrcoef)
 
-svc = SVC(C=1.0, gamma=1.0, class_weight={"exp>pred": 1000, "pred=exp": 0.002, "pred>exp": 1000})
+svc = SVC(C=1.0, gamma=1.0, class_weight={"exp>pred": 10, "pred=exp": 1, "pred>exp": 10})
+# svc = SVC(C=1.0, gamma=1.0)
 
 gs = GridSearchCV(estimator=svc,
                       param_grid=params,
-                      # scoring =mcc_scorer,
+                      scoring =mcc_scorer,
                       cv=4,
                       n_jobs=-1)
 
@@ -42,5 +43,8 @@ gs.fit(X_train, y_train)
 print('best_param')
 print(gs.best_params_)
 plot_confusion_matrix(gs, X_test, y_test)
+
+plt.savefig("data/classify/svc_confusion.png")
+plt.show()
 y_pred = gs.predict(X_test)
 print(matthews_corrcoef(y_test, y_pred))

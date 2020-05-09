@@ -62,6 +62,8 @@ q2  : 0.80169
 [テストケース199個での結果](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/result/diff_sorted_test.csv)
 
 #### 2.良いものと悪いものについて出処に差があったかを調べる  
+![予測と実験値の関係](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/AssayID_scatter_pred_true.png)
+
 test全体（199個）  
 >CHEMBL3431937    86  
 CHEMBL1034536    43  
@@ -92,27 +94,45 @@ CHEMBL1034536において12/43が予測のワースト25に該当した
 
 ベンゼン環が一つしかないものが予測の悪いもので比較的多いことがわかった。
 
+### 4. 予測と実験値の関係についてラベリングをして、クラス分類してみる
+![予測と実験値の関係_0.4](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/Assay%20ID_scatter_pred_true.png)
+
+次のように分類した
+
+![分類](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/compare_scatter_pred_true.png)
+
+予測が外れたものに重みをつけてSVCでグリッドサーチをしてみたところあまりうまく学習できなかった。
+GridSearchでのクラス分類による混同行列は以下のようになった。評価ではマシューズ相関係数を利用した。
+
+![混同行列](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/svc_confusion.png)
+
+SBSによる特徴量抽出も試みたがうまく抽出することができなかった。
+
+
+![ペアプロット](https://github.com/kaz-i-54/lab_tasks_for_newcommer/blob/master/04_chem/m4_8/data/classify/pairplot.png)
+
+
 ### 4.9 発展
 2D, 3D記述子とfinger printを合わせて、次元削減した。次元削減では固有値の分散説明率の累積が0.9以上となるn_component = 256として、optunaを利用してハイパーパラメーターを探索した。  
 
 n_trials=500 とした
 
-####n_component~50 の場合
+#### n_component~50 の場合
 >{'num_leaves': 763, 'n_estimators': 116, 'max_depth': 3, 'min_child_weight': 22, 'subsample': 0.7, 'colsample_bytree': 0.8}  
 RMSE: 0.59108  
 q2  : 0.70698  
 
-####n_component=100 の場合
+#### n_component=100 の場合
 >{'num_leaves': 120, 'n_estimators': 59, 'max_depth': 39, 'min_child_weight': 21, 'subsample': 0.7, 'colsample_bytree': 0.8}  
 RMSE: 0.56623  
 q2  : 0.73111  
 
-####n_component=256 の場合
+#### n_component=256 の場合
 >{'num_leaves': 337, 'n_estimators': 591, 'max_depth': 3, 'min_child_weight': 24, 'subsample': 0.5, 'colsample_bytree': 0.7}  
 RMSE: 0.56858  
 q2  : 0.72886
 
-####参考
+#### 参考
 普通に2d記述子(201個)でoptunaを用いた場合のスコア  
 >{'num_leaves': 5, 'n_estimators': 289, 'max_depth': 53, 'min_child_weight': 17, 'subsample': 0.5, 'colsample_bytree': 0.7}  
 RMSE: 0.48588  
